@@ -6,8 +6,8 @@ var fs = require("fs");
 
 app.get('/scrape',function(req,res){
 
-  // url = "http://www.musicgenreslist.com";
-  url = "http://www.imdb.com/title/tt1229340/";
+  url = "http://www.musicgenreslist.com";
+  // url = "http://www.imdb.com/title/tt1229340/";
   request(url,function(error,response,html){
     if(!error){
       var $ = cheerio.load(html);
@@ -15,14 +15,16 @@ app.get('/scrape',function(req,res){
       var title,release,rating;
       var json = {title:"",release:"",rating:""};
 
-      $('.header').filter(function(){
-        title= $(this).children().first().text();
+      $('.one_half').filter(function(){
+        title= $(this).children().children().children().children().first().text();
         json.title = title;
+        console.log("title?: "+title);
+        console.log("? weird JS asynch going on, no worries")
       })
     };
-    fs.writeFile('output.json',JSON.stringify(json,null,4),function(error){
-      console.log("replace this line with any function");
-    })
+    // fs.writeFile('output.json',JSON.stringify(json,null,4),function(error){
+    //   console.log("replace this line with any function");
+    // })
   res.send('check if you see the output.json in the file')
   })
 })
