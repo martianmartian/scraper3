@@ -11,21 +11,17 @@ app.get('/scrape',function(req,res){
   request(url,function(error,response,html){
     if(!error){
       var $ = cheerio.load(html);
-
-      var title,release,rating;
-      var json = {title:"",release:"",rating:""};
-
-      $('.one_half').filter(function(){
-        title= $(this).children().children().children().children().first().text();
-        json.title = title;
-        console.log("title?: "+title);
-        console.log("? weird JS asynch going on, no worries")
+      var genre=[];
+      $('#polls-2-ans').filter(function(){
+        $(this).children().first().each(function(){
+          genre.push($(this).children().text())
+        })
       })
     };
-    // fs.writeFile('output.json',JSON.stringify(json,null,4),function(error){
-    //   console.log("replace this line with any function");
-    // })
-  res.send('check if you see the output.json in the file')
+    fs.writeFile('output.json',JSON.stringify(genre,null,4),function(error){
+      console.log("replace this line with any function");
+    })
+  res.send(genre)
   })
 })
 
