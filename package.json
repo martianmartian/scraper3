@@ -1,0 +1,12 @@
+{
+  "name":"scraper3",
+  "version":"0.0.3",
+  "descript":"Scrape a web",
+  "main": "server.js",
+  "author":"Xiao Qu",
+  "dependencies":{
+    "express":"*",
+    "request":"*",
+    "cheerio":"*"
+  }
+}
